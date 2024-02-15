@@ -51,7 +51,7 @@ jobs:
           cp -r {README.md,fxmanifest.lua} release/${{ github.event.inputs.zipName }}
           cp -r {client,server,shared} release/${{ github.event.inputs.zipName }}
           if [ ${{ github.event.inputs.buildWeb == 'true' }} == 'true' ]; then
-            cp -r web/dist release/${{ github.event.inputs.zipName }}/web/dist
+            cp -r web/ release/${{ github.event.inputs.zipName }}/web/
           fi
           cd release
           zip -r ../${{ github.event.inputs.zipName }}.zip ${{ github.event.inputs.zipName }}
