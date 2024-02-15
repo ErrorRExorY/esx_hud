@@ -1,0 +1,70 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionNumber:
+        description: 'Version Number (e.g., v1.0.0)'
+        required: true
+      zipName:
+        description: 'Zip Name for the Release'
+        required: true
+        default: 'esx_hud'
+      buildWeb:
+        description: 'Build Web Project (true/false)'
+        required: false
+        default: 'false'
+      excludeOptions:
+        description: 'Files/Folders to Exclude (comma-separated)'
+        required: false
+        default: ''
+
+jobs:
+  create-release:
+    name: Build and Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install archive tools
+        run: sudo apt install zip
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies and build
+        if: ${{ github.event.inputs.buildWeb == 'true' }}
+        run: |
+          cd web
+          npm install
+          npm run build
+
+      - name: Bundle files
+        run: |
+          mkdir -p release/${{ github.event.inputs.zipName }}
+          cp -r {LICENSE,README.md,fxmanifest.lua,config.lua,sv_config.lua} release/${{ github.event.inputs.zipName }}
+          cp -r {client,server,shared} release/${{ github.event.inputs.zipName }}
+          if [ ${{ github.event.inputs.buildWeb == 'true' }} == 'true' ]; then
+            cp -r web/dist release/${{ github.event.inputs.zipName }}/web/
+          fi
+          cd release
+          zip -r ../${{ github.event.inputs.zipName }}.zip ${{ github.event.inputs.zipName }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ github.event.inputs.zipName }}.zip
+          tag_name: ${{ github.event.inputs.versionNumber }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up
+        run: rm -rf release
