@@ -32,14 +32,14 @@ jobs:
             working-directory: web
           fi
 
-      - name: Run build
+      - name: Install dependencies and run build
+        if: ${{ env.WEB }}
         run: |
-          if [ -d "web" ]; then
+            npm install
             npm run build
-            working-directory: web
-          fi
+        working-directory: ./web
         env:
-          CI: false
+            CI: false
           
       - name: Create exclude file from input
         run: |
