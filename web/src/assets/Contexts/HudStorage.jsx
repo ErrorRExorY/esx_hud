@@ -68,6 +68,7 @@ const initialState = {
         playerId: 1,
         onlinePlayers:150,
         serverLogo: "https://esx.s3.fr-par.scw.cloud/blanc-800x800.png",
+        backgroundImageUrl: "https://i.gyazo.com/f98fa5919b3cd2cb6bf262d66070d1eb.png",
         moneys: { bank: 75000, money: 100000 },
         job: "",
         weaponData: { use: true ,image: "pistol", name: "WEAPON NAME" , currentAmmo: 32, maxAmmo: 128 , isWeaponMelee: true},

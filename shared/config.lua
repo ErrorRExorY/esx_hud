@@ -57,7 +57,7 @@ Config = {
         CenterStatuses = true,
     },
     Default = {
-        ServerLogo = "https://esx.s3.fr-par.scw.cloud/blanc-800x800.png",
+        ServerLogo = "https://i.gyazo.com/c2d7d10ab909e092e7e84e5307bb5ee9.webp",
         Kmh = false,
         PassengerSpeedo = false, -- if this true , you can see speedometer if you don't driver
     },
