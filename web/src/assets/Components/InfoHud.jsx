@@ -50,21 +50,12 @@ const AmmoIcon = () => <svg width="15" height="11" viewBox="0 0 15 11" fill="non
 </svg>
 
 const FirstRow = (props) =>{
-    const hudStorageState = useHudStorageState();
     const backgroundStyle = {
-        backgroundImage: `url('${hudStorageState.hud.backgroundImageUrl}')`,
+        backgroundImage: `url(${props.backgroundImageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        // Füge hier weitere Styles hinzu, wenn nötig
+        backgroundRepeat: 'no-repeat'
     };
-
-    // Für eine Farbe
-    const backgroundColorStyle = {
-        backgroundColor: '#ff0000'
-    };
-
-
     return(
         <Show keyed when={!props?.hide}>
             <div className="flex gap-2 mb-4" style={backgroundStyle}>
@@ -176,7 +167,7 @@ export const InfoHud = (props) => {
 
     return (
         <div className="flex flex-col gap-2 w-48 absolute right-0 top-6">
-            <FirstRow hide={settings().Info} playerId={hud().playerId} onlinePlayers={hud().onlinePlayers} serverLogo={serverLogo()}/>
+            <FirstRow hide={settings().Info} backgroundImageUrl={hud().backgroundImageUrl} playerId={hud().playerId} onlinePlayers={hud().onlinePlayers} serverLogo={serverLogo()}/>
             <SecondRow hide={settings().Money} bank={hudStorageState.hud.moneys.bank} money={moneys().money} jobLabel={job()} />
             <ThirdRow hide={settings().Weapon} use={hud().weaponData?.use} name={weapon().name} image={weapon().image} currentAmmo={weapon().currentAmmo} isWeaponMelee={weapon().isWeaponMelee} maxAmmo={weapon().maxAmmo}/>
         </div>
