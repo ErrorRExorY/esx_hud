@@ -50,7 +50,7 @@ jobs:
           mkdir -p release/${{ github.event.inputs.zipName }}
           mkdir -p release/${{ github.event.inputs.zipName }}/web/dist
           cp -r {README.md,fxmanifest.lua} release/${{ github.event.inputs.zipName }}
-          cp -r {client,server,shared} release/${{ github.event.inputs.zipName }}
+          cp -r {client,server,shared,locales} release/${{ github.event.inputs.zipName }}
           if [ ${{ github.event.inputs.buildWeb == 'true' }} == 'true' ]; then
             cp -r web/dist release/${{ github.event.inputs.zipName }}/web/
           fi
