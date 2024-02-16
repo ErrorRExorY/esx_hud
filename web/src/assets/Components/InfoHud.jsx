@@ -51,12 +51,12 @@ const AmmoIcon = () => <svg width="15" height="11" viewBox="0 0 15 11" fill="non
 
 const FirstRow = (props) =>{
     const hudStorageState = useHudStorageState();
-    const backgroundImageUrl = createMemo(() => hudStorageState.hud.backgroundImageUrl);
     const backgroundStyle = {
-        backgroundImage: `url('${backgroundImageUrl()}')`,
+        backgroundImage: `url('${hudStorageState.hud.backgroundImageUrl}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        // Füge hier weitere Styles hinzu, wenn nötig
     };
 
     // Für eine Farbe
@@ -67,7 +67,7 @@ const FirstRow = (props) =>{
 
     return(
         <Show keyed when={!props?.hide}>
-            <div className="flex gap-2 mb-4" style={backgroundStyle()}>
+            <div className="flex gap-2 mb-4" style={backgroundStyle}>
                 <div className="flex gap-2 items-center">
                     <UserIcon/>
                     <p className="font-bold w-10 text-white">#{props?.playerId}</p>
